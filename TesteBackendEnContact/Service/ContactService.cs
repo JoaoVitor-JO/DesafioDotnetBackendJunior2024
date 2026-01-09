@@ -27,11 +27,7 @@ namespace TesteBackendEnContact.Service
         {
             _repository =repository;
             _companyRepository = companyRepository;
-        }
-
-        
-
-        
+        }       
 
         public async Task<IEnumerable<IContact>> ReadFromCsvAsync(IFormFile file)
         {
@@ -55,11 +51,11 @@ namespace TesteBackendEnContact.Service
                 var email = colum[4];
                 var address = colum[5];
 
-                var company = await _companyRepository.GetAsync(contactBookId);
+                var company = await _companyRepository.GetAsync(companyId);
                 
                 IContact contact;
 
-                if( company != null &&  name == company.Name)
+                if( company != null && contactBookId != 0)
                 {
                      contact = new Contact(id, contactBookId, companyId, name, phone, email, address);
 

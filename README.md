@@ -1,57 +1,139 @@
-# Teste back-end enContact
+# 📇 Projeto Backend – enContact API
 
-Bem-vindo ao teste para desenvolvimento back-end na enContact.
+🚀 Projeto backend desenvolvido em **.NET / C#**, baseado no desafio técnico da **enContact**, com foco em **boas práticas, arquitetura limpa e consultas eficientes**.
 
-## O teste
+Mais do que apenas “fazer funcionar”, o objetivo foi **entender as decisões técnicas**, lidar com problemas reais de backend e construir uma API organizada, extensível e bem documentada.
 
-Criamos um pequeno projeto onde tentamos simular o que acontece no dia a dia.
-Um código onde você poderá encontrar pontos com bugs, necessidade de refatoração, problemas que podem gerar má performance etc.
-O projeto consiste em uma API simples para cadastro e consulta de contatos em uma agenda.
+---
 
-Neste teste você poderá mostrar suas habilidades em c# e dotnet, Orientação a objetos, lógica de programação, SQL, refatoração e também suas habilidades de debug para encontrar os problemas.
+## 🧩 Sobre o desafio
 
-O foco deste teste é a garantia dos requisitos abaixo estejam funcionais na API:
+O desafio proposto pela enContact simula situações comuns do dia a dia no desenvolvimento backend, incluindo:
 
-- [ ] Criar, editar, excluir e listar agendas.
-- [ ] Criar, editar, excluir e listar empresas.
-- [ ] Importar contatos a partir de um arquivo .csv
-  - Fique a vontade para definir o leiaute do arquivo .csv
-  - Caso dê erro na importação de um registro, não deve impactar a importação dos demais.
-  - É obrigatório ter uma agenda vinculada ao contato.
-  - No arquivo, se for informada uma empresa ao contato, ela deve existir previamente no sistema. Caso não seja informado, o contato é registrado sem vinculo com a empresa.
-- [ ] Pesquisar contatos
-  - Deve pesquisar em qualquer campo do contato (incluído o nome da empresa).
-  - O parâmetro de entrada deve ser apenas uma string (Semelhante a pesquisa do google onde tem apenas um campo texto)
-  - A pesquisa deve ser paginada (Fique a vontade para utilizar qualquer estratégia).
-- [ ] Pesquisa de contatos da empresa (A partir de uma pesquisa pelo nome do contato ou parte do nome, ou seja, a entrada é um texto)
-  - Deve retornar os contatos agrupados pela agenda.
-    Exemplo do retorno: 
+- Código com pontos de melhoria
+- Possíveis bugs e problemas de performance
+- Necessidade de refatoração
+- Implementação correta de regras de negócio
+- Uso eficiente de SQL e banco de dados
+
+A aplicação consiste em uma **API REST para cadastro, importação e consulta de contatos em agendas**, com vínculo opcional a empresas.
+
+🔗 Desafio original:  
+https://github.com/EnkiGroup/DesafioDotnetBackendJunior2024
+
+---
+
+## 🛠️ Tecnologias utilizadas
+
+- **C# / .NET**
+- **ASP.NET Core (Web API)**
+- **SQLite**
+- **Dapper / Dapper.Contrib**
+- **Swagger (OpenAPI)**
+- **SQL (JOINs, filtros dinâmicos, paginação)**
+
+---
+
+## 🏗️ Arquitetura e conceitos aplicados
+
+- Repository Pattern
+- Service Layer
+- Separação de responsabilidades (Domínio, Persistência e API)
+- DTOs / DAOs para mapeamento de dados
+- Tratamento de erros e nulls
+- Contratos bem definidos com interfaces
+- Consultas SQL performáticas e legíveis
+
+---
+
+## ✅ Funcionalidades implementadas
+
+### 📒 Agendas
+- Criar, editar, excluir e listar agendas
+
+### 🏢 Empresas
+- Criar, editar, excluir e listar empresas
+
+### 📥 Importação de contatos via CSV
+- Leitura de arquivos `.csv`
+- Importação registro a registro
+- Erros em um contato não interrompem a importação
+- Contato deve obrigatoriamente estar vinculado a uma agenda
+- Empresa informada no CSV deve existir previamente
+- Contato pode ser criado sem empresa
+
+### 🔍 Pesquisa de contatos
+- Busca em qualquer campo do contato:
+  - Nome
+  - Email
+  - Telefone
+  - Endereço
+  - Nome da empresa
+- Entrada única de texto (estilo Google)
+- Paginação com `page` e `pageSize`
+
+### 🗂️ Pesquisa de contatos agrupados por agenda
+- Pesquisa por nome ou parte do nome do contato
+- Retorno agrupado por agenda
+
+Exemplo de resposta:
+```json
+[
+  {
+    "contactBookId": 1,
+    "contactBookName": "Agenda Pessoal",
+    "contacts": [
+      {
+        "id": 10,
+        "name": "João Silva",
+        "email": "joao@email.com"
+      }
+    ]
+  }
+]
 ```
-    Lista de
-    {
-      Id da agenda;
-      Nome da agenda;
-      Lista de contatos;
-    }
-```   
 
-## O repositório
+---
 
-1. Faça o fork do nosso repositório no Github.
-2. Clone do projeto.
-3. Faça as devidas alterações para atender aos requisitos.
-4. Caso seja necessário, enviar junto o arquivo "Database.db" que fica na raiz do projeto.
+## 📑 Documentação da API
 
-## O que fazer?
+A API é totalmente documentada com **Swagger**, permitindo:
 
-1. Crie/Edite as APIs necessárias para atender os requisitos.
-2. Refatore o código da maneira que achar melhor.
-3. Fique a vontade para usar qualquer biblioteca externa, caso seja necessário.
+- Testar endpoints diretamente pelo navegador
+- Visualizar parâmetros de busca e paginação
+- Validar contratos de entrada e saída
 
-## Desafio do desafio
+Após executar o projeto, acesse:
+```
+http://localhost:{porta}/swagger
+```
 
-Tem um tempinho a mais? Acha que pode fazer mais? Então aqui vai alguns desafios para seu projeto, que serve como um plus no seu teste!
+---
 
-- Seria uma boa se pontos críticos do código tivessem testes unitários.
-- Adicionar autenticação na API seria interessante.
-- Poder exportar a agenda completa também seria legal.
+## 🧠 Aprendizados
+
+Durante o desenvolvimento, este projeto reforçou conceitos importantes como:
+
+- A importância da separação entre domínio, persistência e transporte de dados
+- Como pequenos erros de rota ou mapeamento podem quebrar uma API
+- Uso consciente de SQL ao invés de abstrações excessivas
+- Como paginação e agrupamento impactam diretamente a performance
+- Benefícios de contratos claros usando interfaces
+
+---
+
+## 🚀 Próximos passos (evoluções possíveis)
+
+- Testes automatizados
+- Autenticação e autorização
+- Cache para consultas frequentes
+- Paginação com metadados (total de registros, total de páginas)
+- Versionamento da API
+
+---
+
+## 👨‍💻 Autor
+
+Projeto desenvolvido por **João Vitor**  
+📌 Backend | .NET | SQL | Automação | 
+
